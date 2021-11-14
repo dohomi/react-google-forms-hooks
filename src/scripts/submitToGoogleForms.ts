@@ -21,7 +21,7 @@ export const formatQuestionName = (id: string) => {
 export const submitToGoogleForms = async (
   form: GoogleForm,
   formData: object
-) => {
+): Promise<boolean> => {
   const urlParams = new URLSearchParams()
   Object.keys(formData).forEach((key) => {
     if (formData[key]) {
@@ -43,5 +43,7 @@ export const submitToGoogleForms = async (
   )
   if (!fetchedResult.ok || fetchedResult.status >= 300) {
     console.warn('the result of GoogleForm is not correct.', fetchedResult)
+    return false
   }
+  return true
 }
